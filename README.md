@@ -1,4 +1,4 @@
-# DSP by FPGA
+# DSP by FPGA with Scilab filter designer
 Cmod A7 driven AD9218&AD9763. 10-bits 50 Msps 2-ch Analog/Digital Processor.<br>
 \scilab: scilab dsp design scripts<br>
 \hdl: hdl codes<br>
