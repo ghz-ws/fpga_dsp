@@ -13,33 +13,62 @@ module sub_top_fir_rate(
     parameter [tap_len_deci-1:0][15:0]tap_deci='{-158,-233,-337,-295,173,1324,3218,5623,8032,9823,10485,9823,8032,5623,3218,1324,173,-295,-337,-233,-158}; //fc=0.08
     parameter [tap_len_intp-1:0][15:0]tap_intp='{-158,-233,-337,-295,173,1324,3218,5623,8032,9823,10485,9823,8032,5623,3218,1324,173,-295,-337,-233,-158}; //fc=0.08
     
-    logic cke_out;
-    logic signed [15:0]deci2fir,fir2intp;
-    poly_deci #(.tap_len(tap_len_deci),.rate(5)) deci(
+    logic cke_out1,cke_out2;
+    logic signed [15:0]deci2fir1,fir2intp1,deci2fir2,fir2intp2;
+    poly_deci #(.tap_len(tap_len_deci),.rate(5)) deci1(
         .clk(clk),
         .rst(rst),
         .cke(1'b1),
         .din(din1),
-        .dout(deci2fir),
-        .cke_out(cke_out),
+        .dout(deci2fir1),
+        .cke_out(cke_out1),
         .tap(tap_deci)
         );
     
-    fir_direct #(.tap_len(tap_len))fir(
+    fir_direct #(.tap_len(tap_len))fir_direct(
         .clk(clk),
         .rst(rst),
-        .cke(cke_out),
-        .din(deci2fir),
-        .dout(fir2intp),
+        .cke(cke_out1),
+        .din(deci2fir1),
+        .dout(fir2intp1),
         .tap(tap_deci)
         );
         
-    poly_intp #(.tap_len(tap_len_intp),.rate(5),.m_rate(1)) intp(
+    poly_intp #(.tap_len(tap_len_intp),.rate(5),.m_rate(1)) intp1(
         .clk(clk),
         .rst(rst),
-        .cke(cke_out),
-        .din(fir2intp),
+        .cke(cke_out1),
+        .din(fir2intp1),
         .dout(dout1),
+        .cke_out(),
+        .tap(tap_intp)
+        );
+        
+    poly_deci #(.tap_len(tap_len_deci),.rate(5)) deci2(
+        .clk(clk),
+        .rst(rst),
+        .cke(1'b1),
+        .din(din2),
+        .dout(deci2fir2),
+        .cke_out(cke_out2),
+        .tap(tap_deci)
+        );
+    
+    fir_trans #(.tap_len(tap_len))fir_trans(
+        .clk(clk),
+        .rst(rst),
+        .cke(cke_out2),
+        .din(deci2fir2),
+        .dout(fir2intp2),
+        .tap(tap_deci)
+        );
+        
+    poly_intp #(.tap_len(tap_len_intp),.rate(5),.m_rate(1)) intp2(
+        .clk(clk),
+        .rst(rst),
+        .cke(cke_out2),
+        .din(fir2intp2),
+        .dout(dout2),
         .cke_out(),
         .tap(tap_intp)
         );

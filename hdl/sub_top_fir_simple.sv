@@ -18,5 +18,12 @@ module sub_top_fir_simple(
         .tap(tap)
         );
     
-    assign dout2=din2;
+    fir_trans #(.tap_len(tap_len))fir_trans(
+        .clk(clk),
+        .rst(rst),
+        .cke(1'b1),
+        .din(din2),
+        .dout(dout2),
+        .tap(tap)
+        );
 endmodule

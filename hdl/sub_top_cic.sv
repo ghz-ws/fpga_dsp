@@ -17,13 +17,6 @@ module sub_top_cic(
         .cke_out(cke_out)
         );
         
-    cic_intp #(.rate(10),.m_rate(1),.len(4),.width(24)) intp(
-        .clk(clk),
-        .rst(rst),
-        .cke(cke_out),
-        .din(dout1),
-        .dout(dout2),
-        .cke_out()
-        );
+    assign dout2=din2;
     
 endmodule

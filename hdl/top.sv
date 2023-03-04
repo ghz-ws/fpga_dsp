@@ -14,7 +14,7 @@ module top(
     //in/out double latch. signed-unsigned change, bit width change
     logic signed [15:0]s_adc1,s_adc2,s_dac1,s_dac2;
     logic [19:0]dl;    //input double latch
-    always@(posedge clk)begin
+    always_ff@(posedge clk)begin
         if(rst)begin
             dl<=0;
             s_adc1<=0;
@@ -41,7 +41,7 @@ module top(
         .clk_in1(mclk)
         );
         
-    sub_top_bbg sub_top(
+    sub_top_cic sub_top(
         .clk(clk),
         .rst(rst),
         .din1(s_adc1),

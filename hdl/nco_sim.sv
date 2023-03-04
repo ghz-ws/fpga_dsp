@@ -7,7 +7,7 @@ module nco_sim( //use only testbench
     bit clk;
     always #5ns clk<=!clk;
     
-    logic [27:0]freq=268435456/100*1;
+    logic [27:0]freq=268435456/100*2;
 
     //phase accumulator
 	logic [27:0]accum=0;
