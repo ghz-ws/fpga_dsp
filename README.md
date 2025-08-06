@@ -1,6 +1,6 @@
 # DSP by FPGA with Scilab filter designer
 Cmod A7 driven ADC10065 & MAX5183. 10-bits 50 Msps Analog/Digital Processor. Input 1ch, Output 4ch. Including Delta-Sigma ADC&DAC.<br>
-Related book (Japanese) is available from ...<br>
+Related book (Japanese) is available from https://ghz-ws.booth.pm/items/7271269<br>
 \scilab: scilab dsp design scripts<br>
 \hdl: hdl codes<br>
 \bit: generated bit files<br>
